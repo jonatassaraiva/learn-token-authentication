@@ -1,0 +1,27 @@
+{
+  "name": "learn-token-authentication",
+  "version": "1.0.0",
+  "description": "Learn token authentication",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonatassaraiva/learn-token-authentication.git"
+  },
+  "author": "Jonatas Saraiva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonatassaraiva/learn-token-authentication/issues"
+  },
+  "homepage": "https://github.com/jonatassaraiva/learn-token-authentication#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.0",
+    "crypto": "0.0.3",
+    "express": "^4.13.4",
+    "moment": "^2.12.0",
+    "mongoose": "^4.4.12"
+  }
+}

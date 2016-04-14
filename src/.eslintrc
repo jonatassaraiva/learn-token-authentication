@@ -1,0 +1,26 @@
+{
+  "extends": "eslint:recommended",
+  "env": {
+    "node": true,
+    "mocha": true,
+    "es6": true
+  },
+  "rules": {
+    "semi": [2, "always"],
+    "quotes": [2, "single"],
+    "no-unused-vars": [2, {
+      "args": "none",
+      "vars": "all"
+    }],
+    "max-len": [2, 120, 2],
+    "curly": [2, "multi-or-nest", "consistent"],
+    "default-case": 2,
+    "no-else-return": 2,
+    "no-eq-null": 2,
+    "no-eval": 2,
+    "no-multi-spaces": 2,
+    "no-throw-literal": 2,
+    "no-useless-concat": 2,
+    "no-var": 2
+  }
+}
