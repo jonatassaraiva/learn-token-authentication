@@ -7,7 +7,7 @@ let userSchema = new mongoose.Schema({
   password: String
 }, { versionKey: false });
 
-userSchema.methods.toJSON = function() {
+userSchema.methods.toJSON = function () {
   let user = this.toObject();
 
   delete user.password;
@@ -15,7 +15,7 @@ userSchema.methods.toJSON = function() {
   return user;
 };
 
-userSchema.pre('save', function(next) {
+userSchema.pre('save', function (next) {
   if (this.isModified('password')) {
     bcrypt.genSalt(10, (err, salt) => {
       if (err)

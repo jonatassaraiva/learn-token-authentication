@@ -3,10 +3,6 @@
 let express = require('express');
 let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
-let moment = require('moment');
-let jwt = require('./services/jwt');
-let authorizationMiddleware = require('./routes/authorization-middleware');
-
 let app = express();
 mongoose.connect('mongodb://localhost/learn-token-authentication');
 
@@ -19,36 +15,8 @@ app.use(function(req, res, next) {
   next();
 });
 
-let User = require('./models/user');
-app.post('/register', (req, res) => {
-  let user = req.body;
-
-  let newUser = new User({
-    email: user.email,
-    password: user.password
-  });
-
-  newUser.save((err) => {
-    if (err) {
-      res.send(err);
-    }
-    else {
-      res.status(201);
-
-      let payload = {
-        userId: newUser._id,
-        expires: moment().add(10, 'days').unix()
-      };
-
-      let token = jwt.encode(payload);
-
-      res.json({
-        user: newUser.toJSON(),
-        token
-      });
-    }
-  });
-});
+let userRoute = require('./routes/user-route');
+app.use('/user', userRoute);
 
 app.get('/', (req, res) => {
 
@@ -61,11 +29,6 @@ app.get('/', (req, res) => {
     author: appInfo.author
   };
   res.json(result);
-});
-
-app.use('/authorized', authorizationMiddleware.verify);
-app.get('/authorized', (req, res) => {
-  res.json(req.authentication);
 });
 
 app.listen(3000);
