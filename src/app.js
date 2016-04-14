@@ -36,7 +36,7 @@ app.post('/register', (req, res) => {
       res.status(201);
 
       let payload = {
-        userId: user._id,
+        userId: newUser._id,
         expires: moment().add(10, 'days').unix()
       };
 
