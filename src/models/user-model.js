@@ -3,8 +3,8 @@ let mongoose = require('mongoose');
 let bcrypt = require('bcrypt-nodejs');
 
 let userSchema = new mongoose.Schema({
-  email: String,
-  password: String
+  email: { type: String, unique: true },
+  password: { type: String }
 }, { versionKey: false });
 
 userSchema.methods.toJSON = function () {
@@ -13,6 +13,10 @@ userSchema.methods.toJSON = function () {
   delete user.password;
 
   return user;
+};
+
+userSchema.methods.comparePassword = function (password, callback) {
+  bcrypt.compare(password, this.password, callback);
 };
 
 userSchema.pre('save', function (next) {
@@ -34,5 +38,7 @@ userSchema.pre('save', function (next) {
     next();
   }
 });
+
+
 
 module.exports = mongoose.model('user', userSchema);

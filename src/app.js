@@ -6,6 +6,7 @@ let mongoose = require('mongoose');
 let app = express();
 mongoose.connect('mongodb://localhost/learn-token-authentication');
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');

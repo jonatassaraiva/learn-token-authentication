@@ -12,4 +12,7 @@ userRouter.use('/authorized', authorizationMiddleware.verify);
 userRouter.route('/authorized')
   .get(userController.authorized);
 
+userRouter.route('/signin')
+  .post(userController.signIn);
+
 module.exports = userRouter;
