@@ -1,7 +1,7 @@
 'use strict';
 let moment = require('moment');
 let jwt = require('../services/jwt');
-let responseModel = require('../models/response-model');
+let responseHttpService = require('../services/response-http-service');
 
 function verify(req, res, next) {
 
@@ -10,7 +10,7 @@ function verify(req, res, next) {
     jwt.decode(req.headers.authorization, (err, data) => {
       if (err) {
         //TODO: Log
-        _responseAuthenticationFaild(res, err);
+        responseHttpService.forbidden(res, err);
         return;
       }
       payload = data;
@@ -26,27 +26,19 @@ function verify(req, res, next) {
         next();
       }
       else {
-        _responseAuthenticationFaild(res, 'Token expired.');
+        responseHttpService.forbidden(res, 'Token expired.');
       }
     }
     else {
-      _responseAuthenticationFaild(res);
+      responseHttpService.forbidden(res);
     }
   }
   else {
-    _responseAuthenticationFaild(res, 'User are not authenticated.');
+    responseHttpService.forbidden(res, 'User are not authenticated.');
   }
 }
 
-function _responseAuthenticationFaild(res, message) {
-  let code = 403;
-  let authenticatedMessage = 'Authentication faild.';
-  if (message)
-    authenticatedMessage = `${authenticatedMessage} ${message}`;
 
-  let response = responseModel.simpleResponde(code, authenticatedMessage);
-  res.status(code).json(response);
-}
 
 module.exports = {
   verify

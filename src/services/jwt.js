@@ -1,5 +1,7 @@
 'use strict';
 
+//TODO: Reneme to jwt-service.js
+
 let crypto = require('crypto');
 
 const SECRECT = 'shhhh...';

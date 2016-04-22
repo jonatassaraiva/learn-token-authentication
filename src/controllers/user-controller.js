@@ -3,15 +3,18 @@
 let moment = require('moment');
 let jwt = require('../services/jwt');
 let User = require('../models/user-model');
-let responseModel = require('../models/response-model');
+let responseHttpService = require('../services/response-http-service');
+let responseMongooseErrorService = require('../services/response-mongoose-error-service');
 
 function authorized(req, res) {
-  let response = responseModel.simpleResponde(200, 'OK', req.authentication);
-  res.json(response);
+  responseHttpService.ok(res, null, req.authentication);
 }
 
 function register(req, res) {
   let user = req.body;
+
+  //TODO: User exists?
+  //TODO: Create password crypt.
 
   let newUser = new User({
     email: user.email,
@@ -20,22 +23,16 @@ function register(req, res) {
 
   newUser.save((err) => {
     if (err) {
-      let response = responseModel.simpleResponde(500, err.errmsg);
-      if(err.code === 11000)
-        response = responseModel.simpleResponde(409, `User, ${newUser.email}, already registered.`);
-
-      res.status(response.status).send(response);
+      responseMongooseErrorService.internalServerError(res, err);
     }
     else {
-      res.status(201);
-
       let token = _createToken(newUser._id);
-
-      let response = responseModel.simpleResponde(201, 'Created', {
+      let resultUser = {
         user: newUser.toJSON(),
         token
-      });
-      res.json(response);
+      };
+
+      responseHttpService.created(res, null, resultUser);
     }
   });
 }
@@ -49,34 +46,32 @@ function signIn(req, res) {
 
   User.findOne(query, function (err, user) {
     if (err) {
-      _responseError(err, user, err);
+      responseMongooseErrorService.internalServerError(res, err);
     }
     else if (user) {
       user.comparePassword(req.user.password, function (err, isMatch) {
         if (err) {
-          _responseError(err, user, err);
+          responseMongooseErrorService.internalServerError(res, err);
         }
         else {
           if (isMatch) {
             let token = _createToken(user._id);
 
-            let response = responseModel.simpleResponde(200, 'OK', {
+            let resultUser = {
               user: user.toJSON(),
               token
-            });
+            };
 
-            res.json(response);
+            responseHttpService.ok(res, resultUser);
           }
           else {
-            let response = responseModel.simpleResponde(403, 'Authentication faild. Email or password invalid.');
-            res.json(response);
+            responseHttpService.forbidden(res, 'Email or password invalid.');
           }
         }
       });
     }
     else {
-      let response = responseModel.simpleResponde(404, 'User not found.');
-      res.json(response);
+      responseHttpService.forbidden(res, 'Email or password invalid.');
     }
   });
 }
@@ -88,11 +83,6 @@ function _createToken(userId) {
   };
 
   return jwt.encode(payload);
-}
-
-function _responseError(req, res, err) {
-  let response = responseModel.simpleResponde(500, `${err.code} - ${err.errmsg}`);
-  res.send(response);
 }
 
 module.exports = {
