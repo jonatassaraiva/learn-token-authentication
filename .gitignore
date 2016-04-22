@@ -24,7 +24,7 @@ src/.lock-wscript
 src/build/Release
 
 # Dependency directory
-src/node_modules
+node_modules
 
 # Optional npm cache directory
 src/.npm
@@ -33,5 +33,5 @@ src/.npm
 src/.node_repl_history
 
 # VSCODE
-src/.vscode
-src/jsconfig.json
+.vscode
+jsconfig.json

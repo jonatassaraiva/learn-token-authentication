@@ -21,7 +21,7 @@ app.use('/user', userRoute);
 
 app.get('/', (req, res) => {
 
-  let appInfo = require('./package.json');
+  let appInfo = require('../package.json');
   let result = {
     version: appInfo.version,
     name: appInfo.name,
@@ -32,4 +32,5 @@ app.get('/', (req, res) => {
   res.json(result);
 });
 
-app.listen(3000);
+let port = process.env.PORT || 3000;
+app.listen(port); 

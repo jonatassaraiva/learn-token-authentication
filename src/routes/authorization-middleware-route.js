@@ -1,4 +1,5 @@
 'use strict';
+
 let moment = require('moment');
 let jwt = require('../services/jwt');
 let responseHttpService = require('../services/response-http-service');

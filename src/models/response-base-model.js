@@ -1,4 +1,4 @@
-'use strinc';
+'use strict';
 
 class ResponseBase {
   constructor(status, message, result) {
