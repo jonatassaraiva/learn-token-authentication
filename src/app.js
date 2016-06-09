@@ -29,8 +29,11 @@ app.get('/', (req, res) => {
     readme: appInfo.homepage,
     author: appInfo.author
   };
+
   res.json(result);
 });
 
 let port = process.env.PORT || 3000;
-app.listen(port); 
+app.listen(port);
+
+module.exports = app;
