@@ -1,6 +1,6 @@
 'use strict';
 
-//TODO: Reneme to jwt-service.js
+//TODO: Rename to jwt-service.js
 
 let crypto = require('crypto');
 

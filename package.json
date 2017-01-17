@@ -19,15 +19,16 @@
   "homepage": "https://github.com/jonatassaraiva/learn-token-authentication#readme",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
-    "body-parser": "^1.15.0",
+    "body-parser": "^1.15.2",
     "crypto": "0.0.3",
-    "express": "^4.13.4",
-    "moment": "^2.12.0",
-    "mongoose": "^4.4.12"
+    "express": "^4.14.0",
+    "moment": "^2.17.1",
+    "mongoose": "^4.7.7"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "chai-http": "^2.0.1",
-    "mocha": "^2.5.3"
+    "chai-http": "^3.0.0",
+    "mocha": "^3.0.0",
+    "typings": "^2.1.0"
   }
 }

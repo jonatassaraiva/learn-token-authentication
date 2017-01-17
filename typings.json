@@ -1,0 +1,6 @@
+{
+  "name": "learn-token-authentication",
+  "dependencies": {
+    "express": "registry:npm/express#4.14.0+20160925001530"
+  }
+}

@@ -20,7 +20,6 @@ let userRoute = require('./routes/user-route');
 app.use('/user', userRoute);
 
 app.get('/', (req, res) => {
-
   let appInfo = require('../package.json');
   let result = {
     version: appInfo.version,
@@ -29,7 +28,6 @@ app.get('/', (req, res) => {
     readme: appInfo.homepage,
     author: appInfo.author
   };
-
   res.json(result);
 });
 
