@@ -1,7 +1,7 @@
 'use strict';
 
 let moment = require('moment');
-let jwt = require('../services/jwt');
+let jwtService = require('../services/jwt-service');
 let User = require('../models/user-model');
 let responseHttpService = require('../services/response-http-service');
 let responseMongooseErrorService = require('../services/response-mongoose-error-service');
@@ -82,7 +82,7 @@ function _createToken(userId) {
     expires: moment().add(10, 'days').unix()
   };
 
-  return jwt.encode(payload);
+  return jwtService.encode(payload);
 }
 
 module.exports = {

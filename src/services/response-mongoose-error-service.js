@@ -4,10 +4,10 @@ let ResponseBase = require('../models/response-base-model');
 
 function internalServerError(res, err) {
   //TODO: Log
-  _responde(res, 500, 'Internal Server Error.', err.errmsg);
+  _response(res, 500, 'Internal Server Error.', err.errmsg);
 }
 
-function _responde(res, statusCode, statusMessage, customMessage, result) {
+function _response(res, statusCode, statusMessage, customMessage, result) {
   if (customMessage)
     statusMessage = `${statusMessage} ${customMessage}`;
 

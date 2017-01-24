@@ -1,14 +1,14 @@
 'use strict';
 
 let moment = require('moment');
-let jwt = require('../services/jwt');
+let jwtService = require('../services/jwt-service');
 let responseHttpService = require('../services/response-http-service');
 
 function verify(req, res, next) {
 
   if (req.headers.authorization) {
     let payload;
-    jwt.decode(req.headers.authorization, (err, data) => {
+    jwtService.decode(req.headers.authorization, (err, data) => {
       if (err) {
         //TODO: Log
         responseHttpService.forbidden(res, err);
@@ -35,11 +35,9 @@ function verify(req, res, next) {
     }
   }
   else {
-    responseHttpService.forbidden(res, 'User are not authenticated.');
+    responseHttpService.forbidden(res, 'User is not authenticated.');
   }
 }
-
-
 
 module.exports = {
   verify
